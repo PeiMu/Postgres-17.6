@@ -19,3 +19,21 @@ about building PostgreSQL from the source code can be found at
 The latest version of this software, and related software, may be
 obtained at <https://www.postgresql.org/download/>.  For more information
 look at our web site located at <https://www.postgresql.org/>.
+
+
+
+## Compile
+```bash
+mkdir -p $PWD/../project_bins
+export PREFIX=$PWD/../project_bins
+
+mkdir build && cd build
+
+# install necessary libraries
+sudo apt install libreadline-dev zlib1g-dev make bison flex gawk
+
+../configure --prefix=$PREFIX
+make -j32
+make check
+make install
+```
