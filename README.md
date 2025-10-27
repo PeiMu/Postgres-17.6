@@ -30,10 +30,32 @@ export PREFIX=$PWD/../project_bins
 mkdir build && cd build
 
 # install necessary libraries
-sudo apt install libreadline-dev zlib1g-dev make bison flex gawk
+sudo apt install libreadline-dev zlib1g-dev make bison flex gawk libicu-dev pkg-config
 
-../configure --prefix=$PREFIX
+# install llvm-14 if enable JIT
+
+../configure --prefix=$PREFIX --with-llvm
 make -j32
 make check
 make install
+```
+
+## Setup
+```bash
+# create database
+pg_ctl -D $PREFIX/data initdb # initdb -D $PREFIX/data
+
+# start server
+pg_ctl start -l $PREFIX/logfile -D $PREFIX/data
+
+# stop server
+pg_ctl stop -D $PREFIX/data -m smart -s
+
+createdb pei
+
+# e.g. 
+psql -U imdb -d imdb -f ~/Project/benchmarks/imdb_job-postgres/skinnerdb_queries/6d.sql
+
+clear && make -j32 && sudo make install && rm_pg_log && pg_ctl start -l $PREFIX/logfile -D $PREFIX/data && psql -U imdb -d imdb -h /tmp -f ./qs_6d.sql && pg_ctl stop -D $PREFIX/data -m smart -s
+pg_log
 ```
