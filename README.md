@@ -51,9 +51,10 @@ pg_ctl start -l $PREFIX/logfile -D $PREFIX/data
 # stop server
 pg_ctl stop -D $PREFIX/data -m smart -s
 
+# e.g. 
+createuser imdb
 createdb imdb
 
-# e.g. 
 psql -U imdb -d imdb -f ~/Project/benchmarks/imdb_job-postgres/skinnerdb_queries/6d.sql
 
 clear && make -j32 && sudo make install && rm_pg_log && pg_ctl start -l $PREFIX/logfile -D $PREFIX/data && psql -U imdb -d imdb -h /tmp -f ./qs_6d.sql && pg_ctl stop -D $PREFIX/data -m smart -s
