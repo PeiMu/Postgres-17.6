@@ -51,7 +51,7 @@ pg_ctl start -l $PREFIX/logfile -D $PREFIX/data
 # stop server
 pg_ctl stop -D $PREFIX/data -m smart -s
 
-createdb pei
+createdb imdb
 
 # e.g. 
 psql -U imdb -d imdb -f ~/Project/benchmarks/imdb_job-postgres/skinnerdb_queries/6d.sql
